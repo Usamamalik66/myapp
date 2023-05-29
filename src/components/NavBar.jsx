@@ -22,8 +22,9 @@ let NavBar = () => {
         <Header position="static" >
             <Toolbar>
                 <Tabs to='/'>Home Page</Tabs>
+                <Tabs to='/login'>Login User</Tabs>
                 <Tabs to='/all'>All User</Tabs>
-                <Tabs to='/add'>Add User</Tabs>
+                <Tabs to='/add'>Sign-up User</Tabs>
 
             </Toolbar>
         </Header>

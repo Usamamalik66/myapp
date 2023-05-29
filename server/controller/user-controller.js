@@ -44,21 +44,18 @@ export let getUser = async (request, response) => {
 }
 
 export let editUser = async (request, response) => {
-
-    let user = request.body;
-
-    let editUser = new User(user);
-
+    const { id } = request.params;
+    const user = request.body;
+  
     try {
-
-        await User.updateOne({ _id: request.params.id }, editUser);
-        response.status(201).json(editUser);
-
+      const updatedUser = await User.findByIdAndUpdate(id, user, { new: true });
+      response.status(200).json(updatedUser);
     } catch (error) {
-        response.status(409).json({ message: error.message });
+      response.status(409).json({ message: error.message });
     }
-}
-
+  };
+  
+  
 export let deleteUser = async (request, response) => {
 
     try {
@@ -71,3 +68,32 @@ export let deleteUser = async (request, response) => {
         response.status(409).json({ message: error.message });
     }
 }
+
+export let loginUser = async (request, response) => {
+    let { username, password } = request.body;
+  
+    try {
+      let user = await User.findOne({ username });
+  
+      if (user) {
+        if (user.password === password) {
+          response.status(200).json({ message: 'Login successful' });
+        } else {
+          response.status(401).json({ message: 'Invalid password' });
+        }
+      } else {
+        response.status(401).json({ message: 'Invalid username' });
+      }
+    } catch (error) {
+      response.status(500).json({ message: error.message });
+    }
+  };
+  
+  
+
+
+
+  
+  
+  
+  

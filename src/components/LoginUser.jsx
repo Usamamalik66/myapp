@@ -1,12 +1,12 @@
 
 
 import { useState } from 'react';
-import { addUser } from '../service/api';
+import { loginUser } from '../service/api';
 import { Button, FormControl, FormGroup, Input, InputLabel, Typography, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-let MyContainer = styled(FormGroup)`
-  width: 50%;
+const MyContainer = styled(FormGroup)`
+   width: 50%;
   margin: 5% auto 0 auto;
 
   div {
@@ -23,15 +23,10 @@ let MyContainer = styled(FormGroup)`
 `;
 
 
-
-
-let AddUser = () => {
+let LoginUser = () => {
   let [user, setUser] = useState({
-    name: '',
     username: '',
-    password: '',
-    email: '',
-    phone: '',
+    password: ''
   });
   let navigate = useNavigate();
 
@@ -39,30 +34,25 @@ let AddUser = () => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  let handleAddUser = async () => {
+  let handleLogin = async () => {
     try {
-     
-      let response = await addUser(user);
-      if (response.status === 201) {
-        navigate('/login'); 
+      let response = await loginUser(user);
+      if (response.status === 200) {
+        navigate('/all'); // Redirect to the AllUsers page upon successful login
       } else {
-      
-        console.log('User registration failed.');
+        // Handle login error
+        console.log('Login failed. Invalid credentials.');
       }
     } catch (error) {
-      console.log('Error while calling addUser API', error);
+      console.log('Error while calling login API', error);
     }
   };
 
   return (
     <MyContainer>
       <div id="Text-Header">
-        <Typography variant="h4">Add User</Typography>
+        <Typography variant="h4">Login</Typography>
       </div>
-      <FormControl>
-        <InputLabel>Name</InputLabel>
-        <Input onChange={onValueChange} name="name" />
-      </FormControl>
       <FormControl>
         <InputLabel>Username</InputLabel>
         <Input onChange={onValueChange} name="username" />
@@ -72,23 +62,18 @@ let AddUser = () => {
         <Input type="password" onChange={onValueChange} name="password" />
       </FormControl>
       <FormControl>
-        <InputLabel>Email</InputLabel>
-        <Input type="email" onChange={onValueChange} name="email" />
-      </FormControl>
-      <FormControl>
-        <InputLabel>Phone</InputLabel>
-        <Input onChange={onValueChange} name="phone" />
-      </FormControl>
-      <FormControl>
-        <Button variant="contained" onClick={handleAddUser}>
-          Register
-        </Button>
+        <Button variant="contained" onClick={handleLogin}>Login</Button>
       </FormControl>
     </MyContainer>
   );
 };
 
+export default LoginUser;
 
 
-export default AddUser;
+
+
+
+
+
 
