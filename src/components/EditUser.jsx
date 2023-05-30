@@ -1,9 +1,5 @@
 
 
-// import { useState, useEffect } from 'react';
-// import { editUser, getUser } from '../service/api';
-// import { Button, FormControl, FormGroup, Input, InputLabel, Typography, styled } from '@mui/material';
-// import { useNavigate, useParams } from 'react-router-dom';
 
 
 import { useState, useEffect } from 'react';
